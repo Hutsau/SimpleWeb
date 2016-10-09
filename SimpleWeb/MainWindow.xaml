@@ -20,6 +20,11 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
+            <Button Name="EditPassword">
+                <TextBlock Cursor="Hand"
+                           Text="Смена пароля"/>
+            </Button>
+
             <Button>
                 <ComboBox Name="Menu"
                           Width="150"
@@ -27,6 +32,7 @@
                           SelectionChanged="Menu_SelectionChanged">
                     <TextBlock>Groups and Students</TextBlock>
                     <TextBlock>Tests</TextBlock>
+                    <TextBlock>Logs</TextBlock>
                 </ComboBox>
             </Button>
         </Controls:WindowCommands>

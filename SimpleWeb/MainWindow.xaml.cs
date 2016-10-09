@@ -29,6 +29,8 @@ namespace SimpleWeb
 
             InitializeComponent();
 
+            EditPassword.Click += (sender, e) => new EditPassword { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+
             Menu.SelectedIndex = 0;
         }
 
@@ -40,6 +42,9 @@ namespace SimpleWeb
                     break;
                 case 1:
                     mFrame.Source = new Uri("TestsPage.xaml", UriKind.Relative);
+                    break;
+                case 2:
+                    mFrame.Source = new Uri("LogsPage.xaml", UriKind.Relative);
                     break;
             }
         }

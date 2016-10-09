@@ -102,10 +102,16 @@
     <Compile Include="EditGroup.xaml.cs">
       <DependentUpon>EditGroup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditPassword.xaml.cs">
+      <DependentUpon>EditPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditStudent.xaml.cs">
       <DependentUpon>EditStudent.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalVars.cs" />
+    <Compile Include="LogsPage.xaml.cs">
+      <DependentUpon>LogsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,7 +164,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditStudent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
