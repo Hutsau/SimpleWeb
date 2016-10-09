@@ -1,0 +1,42 @@
+create table Students (
+	[StudentID] int not null primary key identity,
+	[GroupID] int not null,
+	[Name] nvarchar(50) not null,
+	[Surname] nvarchar(50) not null,
+	[SecondName] nvarchar(50) null,
+	[Rank] tinyint not null default 0
+);
+
+create table Groups (
+	[GroupID] int not null primary key identity,
+	[GroupNumber] nvarchar(10) not null unique
+);
+
+create table Tests (
+	[TestID] int not null primary key identity,
+	[Name] nvarchar(500) not null,
+	[Time] tinyint not null, 
+	[Rank] tinyint not null default 0
+);
+
+create table QTests (
+	[QTestID] int not null primary key identity,
+	[TestID] int not null,
+	[Question] nvarchar(max) not null,
+	[RightAnswer] nvarchar(max) not null,
+	[WrongAnswers] nvarchar(max) not null,
+);
+
+create table Stats (
+	[StatID] int not null primary key identity,
+	[StudentID] int not null,
+	[TestID] int not null,
+	[Result] tinyint not null,
+	[Date] date not null default getdate()
+);
+
+drop table QTests;
+drop table Stats;
+drop table Students;
+drop table Tests;
+drop table Groups;

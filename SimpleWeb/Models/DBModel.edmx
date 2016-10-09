@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QTests">
+          <Key>
+            <PropertyRef Name="QTestID" />
+          </Key>
+          <Property Name="QTestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestID" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RightAnswer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswers" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stats">
+          <Key>
+            <PropertyRef Name="StatID" />
+          </Key>
+          <Property Name="StatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="TestID" Type="int" Nullable="false" />
+          <Property Name="Result" Type="tinyint" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Progress" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="TestID" />
+          </Key>
+          <Property Name="TestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Time" Type="tinyint" Nullable="false" />
+          <Property Name="Priority" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_QTests_Tests">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
+          <End Role="QTests" Type="Self.QTests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestID" />
+            </Principal>
+            <Dependent Role="QTests">
+              <PropertyRef Name="TestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stats_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Stats" Type="Self.Stats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Stats">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stats_Tests">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
+          <End Role="Stats" Type="Self.Stats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestID" />
+            </Principal>
+            <Dependent Role="Stats">
+              <PropertyRef Name="TestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DBModelContainer">
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QTests" EntityType="Self.QTests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stats" EntityType="Self.Stats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_QTests_Tests" Association="Self.FK_QTests_Tests">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="QTests" EntitySet="QTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stats_Students" Association="Self.FK_Stats_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Stats" EntitySet="Stats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stats_Tests" Association="Self.FK_Stats_Tests">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Stats" EntitySet="Stats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Groups" Association="Self.FK_Students_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Groups" FromRole="Groups" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="QTest">
+          <Key>
+            <PropertyRef Name="QTestID" />
+          </Key>
+          <Property Name="QTestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestID" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RightAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WrongAnswers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_QTests_Tests" FromRole="QTests" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="Stat">
+          <Key>
+            <PropertyRef Name="StatID" />
+          </Key>
+          <Property Name="StatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="TestID" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="Byte" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Stats_Students" FromRole="Stats" ToRole="Students" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_Stats_Tests" FromRole="Stats" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Progress" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Students_Groups" FromRole="Students" ToRole="Groups" />
+          <NavigationProperty Name="Stats" Relationship="Self.FK_Stats_Students" FromRole="Students" ToRole="Stats" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestID" />
+          </Key>
+          <Property Name="TestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Time" Type="Byte" Nullable="false" />
+          <Property Name="Priority" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="QTests" Relationship="Self.FK_QTests_Tests" FromRole="Tests" ToRole="QTests" />
+          <NavigationProperty Name="Stats" Relationship="Self.FK_Stats_Tests" FromRole="Tests" ToRole="Stats" />
+        </EntityType>
+        <Association Name="FK_Students_Groups">
+          <End Role="Groups" Type="Self.Group" Multiplicity="1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QTests_Tests">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
+          <End Role="QTests" Type="Self.QTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestID" />
+            </Principal>
+            <Dependent Role="QTests">
+              <PropertyRef Name="TestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stats_Students">
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="Stats" Type="Self.Stat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Stats">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stats_Tests">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
+          <End Role="Stats" Type="Self.Stat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestID" />
+            </Principal>
+            <Dependent Role="Stats">
+              <PropertyRef Name="TestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="QTests" EntityType="Self.QTest" />
+          <EntitySet Name="Stats" EntityType="Self.Stat" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Tests" EntityType="Self.Test" />
+          <AssociationSet Name="FK_Students_Groups" Association="Self.FK_Students_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QTests_Tests" Association="Self.FK_QTests_Tests">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="QTests" EntitySet="QTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stats_Students" Association="Self.FK_Stats_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Stats" EntitySet="Stats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stats_Tests" Association="Self.FK_Stats_Tests">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Stats" EntitySet="Stats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DBModelContainer" CdmEntityContainer="mContext">
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="DBModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QTests">
+            <EntityTypeMapping TypeName="DBModel.QTest">
+              <MappingFragment StoreEntitySet="QTests">
+                <ScalarProperty Name="QTestID" ColumnName="QTestID" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="RightAnswer" ColumnName="RightAnswer" />
+                <ScalarProperty Name="WrongAnswers" ColumnName="WrongAnswers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stats">
+            <EntityTypeMapping TypeName="DBModel.Stat">
+              <MappingFragment StoreEntitySet="Stats">
+                <ScalarProperty Name="StatID" ColumnName="StatID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="DBModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="DBModel.Test">
+              <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

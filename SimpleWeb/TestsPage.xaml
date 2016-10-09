@@ -1,0 +1,983 @@
+﻿<Page x:Class="SimpleWeb.TestsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SimpleWeb"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="880"
+      Title="TestsPage">
+
+    <Page.Resources>
+        <Style x:Key="separator" TargetType="{x:Type Grid}">
+            <!--<Setter Property="Background" Value="#F4F4F4"/>-->
+        </Style>
+        <Style x:Key="separator_text" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#777777"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Padding" Value="0,0,0,3"/>
+        </Style>
+
+        <Style x:Key="red_bt_style" TargetType="{x:Type Label}">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#777777"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="FontSize" Value="8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="save_bt_style" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource AccentColorBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="save_lb_style" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#777777"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                    <Setter Property="Foreground" Value="White"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="create_bt_style" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#459C9C9C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="lb_style" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#777777"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style x:Key="mDataGrid" 
+               TargetType="{x:Type DataGrid}" 
+               BasedOn="{StaticResource MetroDataGrid}">
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#777777"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="None"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Padding" Value="0,0,5,0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+        </Style>
+        <Style x:Key="mDataGridCell" 
+               TargetType="DataGridCell" 
+               BasedOn="{StaticResource MetroDataGridCell}">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontStyle" Value="Italic"/>
+                    <Setter Property="FontSize" Value="13"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="mDataGridRow" 
+               TargetType="DataGridRow" 
+               BasedOn="{StaticResource MetroDataGridRow}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontStyle" Value="Italic"/>
+                </Trigger>
+                
+                
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="mDataGridCell2" 
+               TargetType="DataGridCell" 
+               BasedOn="{StaticResource MetroDataGridCell}">
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="ColumnHeaderStyle" 
+               TargetType="{x:Type DataGridColumnHeader}" 
+               BasedOn="{StaticResource MetroDataGridColumnHeader}">
+            <Setter Property="Cursor" Value="Arrow"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="FontSize" Value="11"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="mDataGrid1" 
+               TargetType="{x:Type DataGrid}" >
+
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserResizeRows" Value="True"/>
+            <Setter Property="CanUserReorderColumns" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="True"/>
+            <Setter Property="CanUserDeleteRows" Value="True"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="IsReadOnly" Value="False"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+        </Style>
+
+        <Style x:Key="mTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <TextBox Text="{Binding Path=Text,
+                                                RelativeSource={RelativeSource TemplatedParent}, 
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="textSource" 
+                                     Background="Transparent"
+                                     VerticalContentAlignment="Center" 
+                                     HorizontalContentAlignment="Left"
+                                     Padding="35,0,35,0"
+                                     FontWeight="Light"
+                                     FontSize="22"
+                                     Panel.ZIndex="2" >
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsReadOnly" Value="False">
+                                                <Setter Property="Cursor" Value="IBeam"/>
+                                            </Trigger>
+                                            <Trigger Property="IsReadOnly" Value="True">
+                                                <Setter Property="Cursor" Value="Arrow"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <TextBox Text="{TemplateBinding Tag}" 
+                                     Background="{TemplateBinding Background}" 
+                                     Panel.ZIndex="1" 
+                                     FontWeight="Light"
+                                     FontSize="22"
+                                     Padding="35,0,35,0"
+                                     VerticalContentAlignment="Center" 
+                                     HorizontalContentAlignment="Left"
+                                     IsTabStop="False">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="LightGray"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="arrow_down_bt_style" TargetType="{x:Type Image}">
+            <Setter Property="Source" Value="Content/ic_down_arrow_black.png"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Source" Value="Content/ic_down_arrow_black.png"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="arrow_up_bt_style" TargetType="{x:Type Image}">
+            <Setter Property="Source" Value="Content/ic_up_arrow_black.png"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Source" Value="Content/ic_up_arrow_black.png"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300*" MinWidth="300"/>
+                <ColumnDefinition Width="580*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+                  Background="#F4F4F4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Row="0"
+                          Name="DG_Header"
+                          Style="{StaticResource mDataGrid}"
+                          ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
+                          Padding="0"
+                          HeadersVisibility="Column">
+
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn
+                                Header="Rank"
+                                Width="65"/>
+                        <DataGridCheckBoxColumn
+                                Header="Test name"                                
+                                Width="*"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <Grid Grid.Row="1"
+                      Panel.ZIndex="30"
+                      Style="{StaticResource separator}">
+
+                    <Border
+                        BorderThickness="1,0,1,1"
+                        BorderBrush="#B9B9B9"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="1"
+                               Content="HTML"
+                               Name="Separator_html"
+                               Style="{StaticResource separator_text}"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Label Name="BadHtml"
+                           Panel.ZIndex="30"
+                           FontSize="18" Foreground="Red"
+                           HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center"
+                           VerticalAlignment="Stretch"
+                           VerticalContentAlignment="Center">Not found.</Label>
+
+                    <DataGrid Name="DG_Html"                           
+                              Style="{StaticResource mDataGrid}"
+                              CellStyle="{StaticResource mDataGridCell}"
+                              RowStyle="{StaticResource mDataGridRow}"
+                              RowBackground="Transparent">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                Binding="{Binding Path=TestID}"
+                                Visibility="Collapsed"/>
+
+                            <DataGridTextColumn
+                                Header="Rank"
+                                Binding="{Binding Path=Rank}"
+                                Width="65">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Header="Название теста"
+                                Binding="{Binding Path=TestName}"
+                                Width="*">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="3"
+                      Panel.ZIndex="30"
+                      Style="{StaticResource separator}">
+
+                    <Border
+                        BorderThickness="1"
+                        BorderBrush="#B9B9B9"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="CSS"
+                            Name="Separator_css"
+                            Style="{StaticResource separator_text}"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Label Name="BadCss"
+                           Panel.ZIndex="30"
+                           FontSize="18" Foreground="Red"
+                           HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center"
+                           VerticalAlignment="Stretch"
+                           VerticalContentAlignment="Center">Not found.</Label>
+
+                    <DataGrid Name="DG_Css"
+                              Style="{StaticResource mDataGrid}"
+                              CellStyle="{StaticResource mDataGridCell}"
+                              RowStyle="{StaticResource mDataGridRow}"
+                              RowBackground="Transparent">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                Binding="{Binding Path=TestID}"
+                                Visibility="Collapsed"/>
+
+                            <DataGridTextColumn
+                                Header="Rank"
+                                Binding="{Binding Path=Rank}"
+                                Width="65">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Header="Название теста"
+                                Binding="{Binding Path=TestName}"
+                                Width="*">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="5"
+                      Panel.ZIndex="30"
+                      Style="{StaticResource separator}">
+
+                    <Border
+                        BorderThickness="1"
+                        BorderBrush="#B9B9B9"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="JavaScript"
+                            Name="Separator_js"
+                            Style="{StaticResource separator_text}"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="6">
+                    <Label Name="BadJs"
+                           Panel.ZIndex="30"
+                           FontSize="18" Foreground="Red"
+                           HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center"
+                           VerticalAlignment="Stretch"
+                           VerticalContentAlignment="Center">Not found.</Label>
+
+                    <DataGrid Name="DG_Js"
+                              Style="{StaticResource mDataGrid}"
+                              CellStyle="{StaticResource mDataGridCell}"
+                              RowStyle="{StaticResource mDataGridRow}"
+                              RowBackground="Transparent">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                Binding="{Binding Path=TestID}"
+                                Visibility="Collapsed"/>
+
+                            <DataGridTextColumn
+                                Header="Rank"
+                                Binding="{Binding Path=Rank}"
+                                Width="65">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Header="Название теста"
+                                Binding="{Binding Path=TestName}"
+                                Width="*">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="7"
+                      Panel.ZIndex="30"
+                      Style="{StaticResource separator}">
+
+                    <Border
+                        BorderThickness="1"
+                        BorderBrush="#B9B9B9"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="JavaScript"
+                            Name="Separator_xml"
+                            Style="{StaticResource separator_text}"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="8">
+                    <Label Name="BadXml"
+                           Panel.ZIndex="30"
+                           FontSize="18" Foreground="Red"
+                           HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center"
+                           VerticalAlignment="Stretch"
+                           VerticalContentAlignment="Center">Not found.</Label>
+
+                    <DataGrid Name="DG_Xml"
+                              Style="{StaticResource mDataGrid}"
+                              CellStyle="{StaticResource mDataGridCell}"
+                              RowStyle="{StaticResource mDataGridRow}"
+                              RowBackground="Transparent">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn 
+                                Binding="{Binding Path=TestID}"
+                                Visibility="Collapsed"/>
+
+                            <DataGridTextColumn
+                                Header="Rank"
+                                Binding="{Binding Path=Rank}"
+                                Width="65">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Header="Название теста"
+                                Binding="{Binding Path=TestName}"
+                                Width="*">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Padding" Value="20,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Row="9"
+                      Style="{StaticResource create_bt_style}"
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch"
+                      Name="CreateTestBt">
+
+                    <Label
+                        Style="{StaticResource lb_style}"
+                        Content="CREATE TEST"
+                        Focusable="True"
+                        Name="FocusLabel"
+                        HorizontalAlignment="Center"               
+                        VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="67"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       Name="CELabel"
+                       FontWeight="Normal" FontFamily="Segoe UI" FontSize="22"                       
+                       Margin="14,0,0,0"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Left"
+                       VerticalAlignment="Stretch"
+                       VerticalContentAlignment="Center"
+                       Content="CREATE/EDIT TEST"/>
+
+                <Label Grid.Row="0"
+                       Name="ErrorLabel"
+                       Foreground="Red"
+                       FontSize="15"              
+                       Visibility="Collapsed"
+                       Margin="0,0,14,0"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Right"
+                       VerticalAlignment="Stretch"
+                       VerticalContentAlignment="Bottom"
+                       Content="Error..."/>
+
+                <TextBox Grid.Row="1"
+                         Name="TestName"
+                         Style="{StaticResource mTextBox}"
+                         Tag="Название теста"/>
+
+                <Grid Grid.Row="2"
+                      Margin="0,10,10,27">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+
+                        <TextBlock Text="Тип"
+                                   Margin="5"
+                                   VerticalAlignment="Center"/>
+
+                        <ComboBox SelectedIndex="0"
+                                  Name="TestType"
+                                  Focusable="False"
+                                  Width="100">
+                            <TextBlock Text="HTML"/>
+                            <TextBlock Text="CSS"/>
+                            <TextBlock Text="JavaScript"/>
+                            <TextBlock Text="XML"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+
+                        <TextBlock Text="Rank"
+                                   Margin="5"
+                                   VerticalAlignment="Center"/>
+
+                        <ComboBox SelectedIndex="0"
+                                  Name="TestRank"
+                                  Focusable="False"
+                                  Width="100">
+                            <TextBlock Text="0"/>
+                            <TextBlock Text="1"/>
+                            <TextBlock Text="2"/>
+                            <TextBlock Text="3"/>
+                            <TextBlock Text="4"/>
+                            <TextBlock Text="5"/>
+                            <TextBlock Text="6"/>
+                            <TextBlock Text="7"/>
+                            <TextBlock Text="8"/>
+                            <TextBlock Text="9"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="5"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+
+                        <TextBlock Text="Время"
+                                   Margin="5"
+                                   VerticalAlignment="Center"/>
+
+                        <ComboBox SelectedIndex="0"
+                                  Name="TestTime"
+                                  Focusable="False"
+                                  Width="100">
+                            <TextBlock Text="15мин"/>
+                            <TextBlock Text="30мин"/>
+                            <TextBlock Text="45мин"/>
+                            <TextBlock Text="1ч"/>
+                            <TextBlock Text="1ч 15мин"/>
+                            <TextBlock Text="1ч 30мин"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="3"
+                        Grid.RowSpan="2"
+                        BorderBrush="#B9B9B9"
+                        BorderThickness="0,0,0,3">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="160"/>
+                        </Grid.ColumnDefinitions>
+
+                        <DataGrid Grid.Column="0"
+                          Name="QTestsHeader"
+                          Style="{StaticResource mDataGrid}"
+                          ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
+                          HeadersVisibility="Column"
+                              VerticalScrollBarVisibility="Visible"
+                          CanUserSortColumns="False">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                Header="Вопрос (5 min)"
+                                Width="*"/>
+                                <DataGridTextColumn
+                                Header="Ответ"
+                                Width="*"/>
+                                <DataGridTextColumn
+                                Header="Неверные ответы"
+                                Width="*"/>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <TextBlock Grid.Row="3"
+                           HorizontalAlignment="Right"
+                           Name="a" Grid.RowSpan="2">
+                    <TextBlock.ToolTip>
+                        <ToolTip x:Name="mToolTip"
+                                 Placement="Top"
+                                 HorizontalOffset="-100"
+                                 VerticalOffset="-5"
+                                 Content="Чтобы отделить неверные ответы дру от друга используйте ';'"/>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+
+                <Border Grid.Row="5" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <!--<Border BorderBrush="#B9B9B9" BorderThickness="0,0,0,3"/>-->
+
+                        <DataGrid Name="QTests"
+                                  ItemsSource="{Binding}"                                                           
+                                  HeadersVisibility="None"
+                                  HorizontalScrollBarVisibility="Hidden"
+                                  VerticalScrollBarVisibility="Visible"
+                                  SelectionMode="Single"
+                                  SelectionUnit="Cell"
+                                  GridLinesVisibility="All" 
+                                  CanUserSortColumns="False"
+                                  CanUserAddRows="True"
+                                  CanUserDeleteRows="False"
+                                  CanUserResizeColumns="True"
+                                  CanUserResizeRows="True"
+                                  AutoGenerateColumns="False">
+
+
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource MetroDataGridCell}">
+                                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="true">
+                                            <Setter Property="Background" Value="#A0D8F0"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.CellStyle>
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                    Binding="{Binding Path=QTestID}"
+                                    Visibility="Collapsed"/>
+
+                                <DataGridTextColumn
+                                Header="Вопрос"
+                                Binding="{Binding Path=Question}"
+                                Width="*">
+
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="Padding" Value="9,3,0,3"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+
+                                    <DataGridTextColumn.EditingElementStyle>
+                                        <Style TargetType="{x:Type TextBox}">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Padding" Value="7,3,0,3"/>
+                                            <Setter Property="Background" Value="White"/>
+                                        </Style>
+                                    </DataGridTextColumn.EditingElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                Header="Ответ"
+                                Binding="{Binding Path=RightAnswer}"
+                                Width="*">
+
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="Padding" Value="9,3,0,3"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+
+                                    <DataGridTextColumn.EditingElementStyle>
+                                        <Style TargetType="{x:Type TextBox}">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Padding" Value="7,3,0,3"/>
+                                        </Style>
+                                    </DataGridTextColumn.EditingElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                Header="Неверные ответы"
+                                Binding="{Binding Path=WrongAnswers}"
+                                Width="*">
+
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="Padding" Value="9,3,0,3"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+
+                                    <DataGridTextColumn.EditingElementStyle>
+                                        <Style TargetType="{x:Type TextBox}">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Padding" Value="7,3,0,3"/>
+                                        </Style>
+                                    </DataGridTextColumn.EditingElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn
+                                Binding="{Binding Path=QTestUp}"
+                                IsReadOnly="True"
+                                Width="100">
+
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Foreground" Value="#0066CC"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+
+                                            <EventSetter Event="MouseDown" Handler="mHyperlinkMouseDown"/>
+                                            <EventSetter Event="MouseUp" Handler="QTestUpBtMouseUp"/>
+                                            <EventSetter Event="MouseLeave" Handler="mHyperlinkMouseLeave"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn
+                                Binding="{Binding Path=DeleteQTest}"
+                                IsReadOnly="True"
+                                Width="60">
+
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Foreground" Value="#0066CC"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+
+                                            <EventSetter Event="MouseDown" Handler="mHyperlinkMouseDown"/>
+                                            <EventSetter Event="MouseUp" Handler="DeleteQTestBtMouseUp"/>
+                                            <EventSetter Event="MouseLeave" Handler="mHyperlinkMouseLeave"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="85"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="85"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="85"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1"
+                          Name="DeleteTestBt">
+                            <Label Style="{StaticResource red_bt_style}" 
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Right"
+                               Content="DELETE TEST"/>
+                        </Grid>
+
+                        <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="1" Margin="0,15,0,15"/>
+
+                        <Grid Grid.Column="5"
+                          Name="ClearFormBt">
+                            <Label Style="{StaticResource red_bt_style}" 
+                               HorizontalContentAlignment="Center"
+                               Content="CLEAR FORM"/>
+                        </Grid>
+
+                        <Border Grid.Column="7" BorderBrush="LightGray" BorderThickness="1" Margin="0,15,0,15"/>
+
+                        <Grid Grid.Column="9"
+                          Name="CloseFormBt">
+                            <Label Style="{StaticResource red_bt_style}"
+                               HorizontalContentAlignment="Left"
+                               Content="CLOSE FORM"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="1"
+                          Style="{StaticResource save_bt_style}"
+                          HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Stretch"
+                          Name="SaveBt">
+
+                        <Label Style="{StaticResource save_lb_style}"
+                               Content="SAVE"
+                               HorizontalAlignment="Center"               
+                               VerticalAlignment="Center"/>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1"
+                  Name="BadTest"
+                  Visibility="Collapsed"
+                  Background="White"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+
+                <Label
+                    FontWeight="Bold" FontFamily="Segoe UI" FontSize="18" Foreground="Red"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Content="Ожидание действий пользователя..."/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
