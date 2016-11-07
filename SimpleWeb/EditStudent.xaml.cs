@@ -47,8 +47,10 @@ namespace SimpleWeb
             Name.TextChanged += mTextChanged;
             SecondName.TextChanged += mTextChanged;
 
-            BadName.Visibility = Visibility.Hidden;
-            BadSurname.Visibility = Visibility.Hidden;
+            Surname.PreviewKeyDown += (sender, e) => { if (e.Key == Key.Enter) Save(); };
+            Name.PreviewKeyDown += (sender, e) => { if (e.Key == Key.Enter) Save(); };
+            SecondName.PreviewKeyDown += (sender, e) => { if (e.Key == Key.Enter) Save(); };
+
             BadLabel.Visibility = Visibility.Hidden;
 
             this.Title = _student == 0 ? "New Student" : "Edit Student";
@@ -62,6 +64,7 @@ namespace SimpleWeb
             }
 
             GlobalVars.saveFlag = false;
+            Surname.Focus();
         }
 
         private async void Cancel() {
@@ -84,17 +87,19 @@ namespace SimpleWeb
         }
 
         private async void Save() {
+            SaveLabel.Focusable = true;
             SaveLabel.Focus();
+            SaveLabel.Focusable = false;
 
             var flag = true;
 
             if (Surname.Text.Equals("")) {
-                BadSurname.Visibility = Visibility.Visible;
+                BadSurname.BorderBrush = Brushes.Red;
                 flag = false;
             }
 
             if (Name.Text.Equals("")) {
-                BadName.Visibility = Visibility.Visible;
+                BadName.BorderBrush = Brushes.Red;
                 flag = false;
             }
 
@@ -144,17 +149,17 @@ namespace SimpleWeb
 
             switch (((TextBox)sender).Name) {
                 case "Surname":
-                    if (!BadSurname.Visibility.Equals(Visibility.Hidden)) {
-                        BadSurname.Visibility = Visibility.Hidden;
+                    if (!BadSurname.BorderBrush.Equals(Brushes.LightGray)) {
+                        BadSurname.BorderBrush = Brushes.LightGray;
 
-                        if (BadName.Visibility.Equals(Visibility.Hidden))
+                        if (BadName.BorderBrush.Equals(Brushes.LightGray))
                             BadLabel.Visibility = Visibility.Hidden;
                     } break;
                 case "Name":
-                    if (!BadName.Visibility.Equals(Visibility.Hidden)) {
-                        BadName.Visibility = Visibility.Hidden;
+                    if (!BadName.BorderBrush.Equals(Brushes.LightGray)) {
+                        BadName.BorderBrush = Brushes.LightGray;
 
-                        if (BadSurname.Visibility.Equals(Visibility.Hidden))
+                        if (BadSurname.BorderBrush.Equals(Brushes.LightGray))
                             BadLabel.Visibility = Visibility.Hidden;
                     } break;
             }

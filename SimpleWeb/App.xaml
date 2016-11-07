@@ -42,6 +42,34 @@
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+
+            <Style x:Key="passwordbox_style" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MetroPasswordBox}">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="FontWeight" Value="Light"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="textbox_style" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="FontWeight" Value="Light"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

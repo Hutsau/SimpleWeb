@@ -129,38 +129,65 @@
             Margin="20,0,20,0"
             VerticalAlignment="Center">
 
-            
-                <TextBox
-                    Name="Surname"
-                    Margin="10,15,10,5"
-                    
-                    Style="{StaticResource mTextBox}"
-                    Tag="Surname"/>
+            <Border BorderBrush="LightGray" 
+                    BorderThickness="1,0,1,0"
+                    SnapsToDevicePixels="True"
+                    Margin="10,15,10,5">
+                <Grid>
+                    <TextBox Name="Surname"                    
+                         Controls:TextBoxHelper.Watermark="Surname"
+                         Style="{DynamicResource textbox_style}"/>
 
-            <Border
-                Name="BadSurname"
-                BorderThickness="0,1,0,0" 
-                BorderBrush="Red" 
-                Margin="10,-6,10,0"/>
+                    <Border Name="BadSurname"
+                            BorderThickness="0,0,0,1" 
+                            BorderBrush="LightGray"
+                            SnapsToDevicePixels="True" />
 
+                    <Border BorderThickness="0,1,0,0" 
+                            BorderBrush="{StaticResource AccentColorBrush}"
+                            SnapsToDevicePixels="True" />
+                </Grid>
+            </Border>
 
-            <TextBox
-                Name="Name"
-                
-            Margin="10,5,10,5"
-            Style="{StaticResource mTextBox}"
-            Tag="Name"/>
+            <Border BorderBrush="LightGray" 
+                    BorderThickness="1,0,1,0"
+                    SnapsToDevicePixels="True"
+                    Margin="10,5">
+                <Grid>
+                    <TextBox Name="Name"                    
+                         Controls:TextBoxHelper.Watermark="Name"
+                         Style="{DynamicResource textbox_style}"/>
 
-            <Border
-                Name="BadName"
-                BorderThickness="0,1,0,0" 
-                BorderBrush="Red" 
-                Margin="10,-6,10,0"/>
+                    <Border Name="BadName"
+                            BorderThickness="0,0,0,1" 
+                            BorderBrush="LightGray"
+                            SnapsToDevicePixels="True" />
 
-            <TextBox Name="SecondName"                
-                     Margin="10,5,10,5"
-                     Style="{StaticResource mTextBox}"
-                     Tag="Second Name"/>
+                    <Border BorderThickness="0,1,0,0" 
+                            BorderBrush="{StaticResource AccentColorBrush}"
+                            SnapsToDevicePixels="True" />
+                </Grid>
+            </Border>
+
+            <Border BorderBrush="LightGray" 
+                    BorderThickness="1,0,1,0"
+                    SnapsToDevicePixels="True"
+                    Margin="10,5">
+                <Grid>
+                    <TextBox Name="SecondName"                    
+                         Controls:TextBoxHelper.Watermark="Second Name"
+                         Style="{DynamicResource textbox_style}"/>
+
+                    <Border Name="BadSecondName"
+                            BorderThickness="0,0,0,1" 
+                            BorderBrush="LightGray"
+                            SnapsToDevicePixels="True" />
+
+                    <Border BorderThickness="0,1,0,0" 
+                            BorderBrush="{StaticResource AccentColorBrush}"
+                            SnapsToDevicePixels="True" />
+                </Grid>
+            </Border>
         </StackPanel>
 
         <Label 
@@ -208,7 +235,6 @@
                 <Label
                     Style="{StaticResource lb_style}"
                         Content="Save"
-                    Focusable="True"
                     Name="SaveLabel"
                         HorizontalAlignment="Center"               
                         VerticalAlignment="Center"/>

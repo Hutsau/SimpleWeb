@@ -42,8 +42,8 @@ namespace SimpleWeb
             CancelBt.MouseUp += mMouseUp;
 
             GroupNumber.TextChanged += mTextChanged;
+            GroupNumber.PreviewKeyDown += (sender, e) => { if (e.Key == Key.Enter) Save(); };
 
-            BadGroup.Visibility = Visibility.Hidden;
             BadLabel.Visibility = Visibility.Hidden;
 
             this.Title = _group == 0 ? "New Group" : "Edit Group";
@@ -54,6 +54,7 @@ namespace SimpleWeb
             }
 
             GlobalVars.saveFlag = false;
+            GroupNumber.Focus();
         }
 
         private async void Cancel() {
@@ -77,7 +78,8 @@ namespace SimpleWeb
             SaveLabel.Focus();
 
             if (GroupNumber.Text.Equals(string.Empty)) {
-                BadGroup.Visibility = Visibility.Visible;
+                GroupNumber.Focus();
+                BadGroup.BorderBrush = Brushes.Red;
                 BadLabel.Content = "Заполните обязательные поля";
                 BadLabel.Visibility = Visibility.Visible;
                 return;
@@ -89,7 +91,7 @@ namespace SimpleWeb
                 if (group_number == this.group_number) { this.Close(); return; }
 
             if (repository.GetGroup(GroupNumber.Text) != null) {
-                BadGroup.Visibility = Visibility.Visible;
+                GroupNumber.Focus();
                 BadLabel.Content = "Группа с таким номером уже существует";
                 BadLabel.Visibility = Visibility.Visible;
                 return;
@@ -117,8 +119,8 @@ namespace SimpleWeb
         }
 
         private void mTextChanged(object sender, TextChangedEventArgs e) {
-            if (!BadGroup.Visibility.Equals(Visibility.Hidden)) {
-                BadGroup.Visibility = Visibility.Hidden;
+            if (!BadGroup.BorderBrush.Equals(Brushes.LightGray)) {
+                BadGroup.BorderBrush = Brushes.LightGray;
                 BadLabel.Visibility = Visibility.Hidden;
             }
         }

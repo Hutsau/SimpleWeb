@@ -113,19 +113,25 @@
             Margin="20,0,20,0"
             VerticalAlignment="Center">
 
+            <Border BorderBrush="LightGray" 
+                    BorderThickness="1,0,1,0"
+                    SnapsToDevicePixels="True"
+                    Margin="10,15,10,5">
+                <Grid>
+                    <TextBox Name="GroupNumber"                    
+                         Controls:TextBoxHelper.Watermark="Group Number"
+                         Style="{DynamicResource textbox_style}"/>
 
-            <TextBox
-                    Name="GroupNumber"
-                    Margin="10,15,10,5"
-                    
-                    Style="{StaticResource mTextBox}"
-                    Tag="Group Number"/>
+                    <Border Name="BadGroup"
+                            BorderThickness="0,0,0,1" 
+                            BorderBrush="LightGray"
+                            SnapsToDevicePixels="True" />
 
-            <Border
-                Name="BadGroup"
-                BorderThickness="0,1,0,0" 
-                BorderBrush="Red" 
-                Margin="10,-6,10,0"/>
+                    <Border BorderThickness="0,1,0,0" 
+                            BorderBrush="{StaticResource AccentColorBrush}"
+                            SnapsToDevicePixels="True" />
+                </Grid>
+            </Border>
 
         </StackPanel>
 
@@ -173,7 +179,6 @@
                 <Label
                     Style="{StaticResource lb_style}"
                         Content="Save"
-                    Focusable="True"
                     Name="SaveLabel"
                         HorizontalAlignment="Center"               
                         VerticalAlignment="Center"/>
