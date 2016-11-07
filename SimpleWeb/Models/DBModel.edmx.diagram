@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ff69b063298e4a128a7a56a752e2b8f6" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="DBModel.Group" Width="1.5" PointX="2" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.QTest" Width="1.5" PointX="6.375" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Stat" Width="1.5" PointX="6.375" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Student" Width="1.5" PointX="4.125" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Test" Width="1.5" PointX="4.125" PointY="3.625" IsExpanded="true" />
+      <Diagram DiagramId="8c3aad07515444dcadc1ea707e07a21f" Name="Diagram1">
+        <EntityTypeShape EntityType="DBModel.Group" Width="1.5" PointX="1.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.QTest" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Stat" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Student" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Test" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="DBModel.FK_Students_Groups" ManuallyRouted="false" />
         <AssociationConnector Association="DBModel.FK_QTests_Tests" ManuallyRouted="false" />
         <AssociationConnector Association="DBModel.FK_Stats_Students" ManuallyRouted="false" />

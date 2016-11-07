@@ -112,6 +112,8 @@
     <Compile Include="LogsPage.xaml.cs">
       <DependentUpon>LogsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataTypes\StatView.cs" />
+    <Compile Include="DataTypes\StatViewDop.cs" />
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,8 +138,6 @@
     <Compile Include="Models\Stat.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataTypes\StatView.cs" />
-    <Compile Include="DataTypes\StatViewDop.cs" />
     <Compile Include="Models\Student.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -255,12 +255,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>SimpleWeb_DB.mdf</DependentUpon>
     </Content>
-    <Resource Include="Content\ic_back_black.png" />
-    <Resource Include="Content\ic_save_black.png" />
-    <Resource Include="Content\ic_back_white.png" />
-    <Resource Include="Content\ic_save_white.png" />
-    <Resource Include="Content\ic_down_arrow_black.png" />
-    <Resource Include="Content\ic_up_arrow_black.png" />
     <Content Include="Models\DBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DBModel.edmx</DependentUpon>
@@ -271,6 +265,12 @@
       <DependentUpon>DBModel.edmx</DependentUpon>
       <LastGenOutput>DBModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Content\ic_back_black.png" />
+    <Resource Include="Content\ic_save_black.png" />
+    <Resource Include="Content\ic_back_white.png" />
+    <Resource Include="Content\ic_save_white.png" />
+    <Resource Include="Content\ic_down_arrow_black.png" />
+    <Resource Include="Content\ic_up_arrow_black.png" />
     <Resource Include="Content\ic_plus_black.png" />
     <Resource Include="Content\ic_plus_white.png" />
     <Resource Include="Content\ic_edit_black.png" />
