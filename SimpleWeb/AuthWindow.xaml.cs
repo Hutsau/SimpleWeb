@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Configuration;
 using SimpleWeb.Properties;
 using System.Security;
+using SimpleWeb.Models;
 
 namespace SimpleWeb
 {
@@ -22,11 +23,15 @@ namespace SimpleWeb
     /// </summary>
     public partial class AuthWindow
     {
-        string password = EncDecHelper.DecryptString(Settings.Default.Password).ToInsecureString();
+        // string password = EncDecHelper.DecryptString(Settings.Default.Password).ToInsecureString();
+        string password;
+        Repository rep = new Repository();
 
         public AuthWindow()
         {
             InitializeComponent();
+
+            password = rep.GetPass; // 12345678q -- delete comment when release
 
             Password.PasswordChanged += mPasswordChanged;
 
@@ -35,16 +40,18 @@ namespace SimpleWeb
 
         private void mPasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (((PasswordBox)sender).Password == password) {
-                GlobalVars.authFlag = true;
+            if (GlobalVars.GetHashCode(Password.Password) == password)
+            {
+                GlobalVars.AuthFlag = true;
                 this.Close();
             }
-        }       
+        }
     }
+}
 
-    public static class EncDecHelper
+   /* public static class EncDecHelper
     {
-        static byte[] entropy = Encoding.Unicode.GetBytes(((MainWindow)Application.Current.MainWindow).Title);
+        static byte[] entropy = Encoding.Unicode.GetBytes(GlobalVars.MWindow.Title);
 
         public static string EncryptString(SecureString input)
         {
@@ -102,3 +109,5 @@ namespace SimpleWeb
         }
     }
 }
+*/
+  

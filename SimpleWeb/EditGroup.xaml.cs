@@ -22,7 +22,7 @@ namespace SimpleWeb
     public partial class EditGroup
     {
         Repository repository = new Repository();
-        int _group = GlobalVars.groupID;
+        int _group = GlobalVars.GroupID;
         string group_number;
 
         public EditGroup()
@@ -53,7 +53,7 @@ namespace SimpleWeb
                 GroupNumber.Text = group_number;
             }
 
-            GlobalVars.saveFlag = false;
+            GlobalVars.SaveFlag = false;
             GroupNumber.Focus();
         }
 
@@ -103,7 +103,7 @@ namespace SimpleWeb
             });
 
             await this.ShowMessageAsync(string.Empty, "Group saved.");
-            GlobalVars.saveFlag = true;
+            GlobalVars.SaveFlag = true;
             this.Close();
         }
 

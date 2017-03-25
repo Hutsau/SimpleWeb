@@ -22,18 +22,32 @@ namespace SimpleWeb
     /// </summary>
     public partial class MainWindow
     {
+        private const double topOffset = 20;
+        private const double leftOffset = 380;
         public MainWindow()
         {
-            new AuthWindow().ShowDialog();
-            if (!GlobalVars.authFlag) this.Close();
-
+            
             InitializeComponent();
 
-            EditPassword.Click += (sender, e) => new EditPassword { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+            GlobalVars.MWindow = this;
+
+            new AuthWindow().ShowDialog();
+            if (!GlobalVars.AuthFlag) this.Close();
+
+            GlobalVars.growlNotifications.Top = SystemParameters.WorkArea.Top + topOffset;
+            GlobalVars.growlNotifications.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - leftOffset;
+
+            EditPassword.Click += (sender, e) => new EditPassword { Owner = GlobalVars.MWindow }.ShowDialog();
 
             Menu.SelectedIndex = 0;
         }
 
+        protected override void OnClosed(System.EventArgs e)
+        {
+            GlobalVars.growlNotifications.Close();
+            base.OnClosed(e);
+        }
+    
         private void Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (((ComboBox)sender).SelectedIndex) {

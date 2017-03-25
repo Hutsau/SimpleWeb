@@ -12,7 +12,7 @@ namespace SimpleWeb.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,18 +20,6 @@ namespace SimpleWeb.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAk2qRubVesk6QkztPz3Dq4AAAAAACAAAAAAAQZgAAAAEAACAAAADkMH05+Jg0cq309uJNpmt55bAYhy9Dw3dNLLN3PGXmCgAAAAAOgAAAAAIAACAAAAA2byxbFEfdqDWQ8/rqamBwOB6busTr1av1hVMf0k1kTCAAAABbVK5U4O/tNk2Bv51bKTxMvxMt+Neie/CH7q1auEmjU0AAAABNil0CnXwhCgrtq1murE3zkW+aXh8COeqM03zJ6k+PzT6LTXDNFIlOxjwqpztHQS3oEV4YC4IEvkYryLZjOr8a")]
-        public string Password {
-            get {
-                return ((string)(this["Password"]));
-            }
-            set {
-                this["Password"] = value;
             }
         }
     }

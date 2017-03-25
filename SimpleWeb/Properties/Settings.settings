@@ -1,9 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimpleWeb.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAk2qRubVesk6QkztPz3Dq4AAAAAACAAAAAAAQZgAAAAEAACAAAADkMH05+Jg0cq309uJNpmt55bAYhy9Dw3dNLLN3PGXmCgAAAAAOgAAAAAIAACAAAAA2byxbFEfdqDWQ8/rqamBwOB6busTr1av1hVMf0k1kTCAAAABbVK5U4O/tNk2Bv51bKTxMvxMt+Neie/CH7q1auEmjU0AAAABNil0CnXwhCgrtq1murE3zkW+aXh8COeqM03zJ6k+PzT6LTXDNFIlOxjwqpztHQS3oEV4YC4IEvkYryLZjOr8a</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>

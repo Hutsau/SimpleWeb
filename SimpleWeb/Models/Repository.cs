@@ -17,6 +17,11 @@ namespace SimpleWeb.Models
                 context.SaveChangesAsync();
             });
         }
+        public string GetPass
+        {
+            get { return context.Admin.First().Password; }
+            set { context.Admin.First().Password = value; context.SaveChanges(); }
+        }
 
         public void SaveStudent(Student student) {
             if (student.StudentID == 0) context.Students.Add(student);
@@ -65,10 +70,10 @@ namespace SimpleWeb.Models
         }
 
         public void SaveQTests(List<QTest> qtests) {
-            var _new = qtests.Where(x => x.QTestID == 0);
-            var _old = qtests.Where(x => x.QTestID != 0);
+            var _new = qtests.Where(x => x.QTestID == 0).ToArray();
+            var _old = qtests.Where(x => x.QTestID != 0).ToArray();
 
-            if (_new != null) context.QTests.AddRange(qtests);
+            if (_new.Count() != 0) context.QTests.AddRange(_new);
 
             if (_old != null)
                 foreach (var x in _old) {

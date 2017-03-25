@@ -187,7 +187,7 @@ namespace SimpleWeb
 
             if (IsTestChanged &&
                 BadTest.Visibility == Visibility.Collapsed &&
-                await ((MainWindow)Application.Current.MainWindow)
+                await GlobalVars.MWindow
                 .ShowMessageAsync("Discard changes", "Discard your changes?", MessageDialogStyle.AffirmativeAndNegative)
                 == MessageDialogResult.Negative) return;
 
@@ -308,7 +308,7 @@ namespace SimpleWeb
             if (!SelectionFlag &&
                 BadTest.Visibility == Visibility.Collapsed && 
                 IsTestChanged && 
-                await ((MainWindow)Application.Current.MainWindow)
+                await GlobalVars.MWindow
                 .ShowMessageAsync("Discard changes", "Discard your changes?", MessageDialogStyle.AffirmativeAndNegative)
                 == MessageDialogResult.Negative) {
 
@@ -454,13 +454,13 @@ namespace SimpleWeb
         }
 
         private void DeleteTest() {
-            GlobalVars.groupID = 0;
-            GlobalVars.studentID = 0;
-            GlobalVars.testID = currTest.TestID;
+            GlobalVars.GroupID = 0;
+            GlobalVars.StudentID = 0;
+            GlobalVars.TestID = currTest.TestID;
 
-            new DeleteWindow { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+            new DeleteWindow { Owner = GlobalVars.MWindow }.ShowDialog();
 
-            if (GlobalVars.deleteFlag) {
+            if (GlobalVars.DeleteFlag) {
                 repository = new Repository();
 
                 GetTests();
@@ -472,7 +472,7 @@ namespace SimpleWeb
 
             if (IsTestChanged &&
                 BadTest.Visibility == Visibility.Collapsed &&
-                await ((MainWindow)Application.Current.MainWindow)
+                await GlobalVars.MWindow
                 .ShowMessageAsync("Discard changes", "Discard your changes?", MessageDialogStyle.AffirmativeAndNegative)
                 == MessageDialogResult.Negative) return;
 
@@ -511,7 +511,7 @@ namespace SimpleWeb
         }
 
         private async void CloseForm() {
-            if (IsTestChanged && await ((MainWindow)Application.Current.MainWindow)
+            if (IsTestChanged && await GlobalVars.MWindow
                 .ShowMessageAsync("Discard changes", "Discard your changes?", MessageDialogStyle.AffirmativeAndNegative)
                 == MessageDialogResult.Negative) return;
 

@@ -25,6 +25,7 @@ namespace SimpleWeb.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<QTest> QTests { get; set; }
         public virtual DbSet<Stat> Stats { get; set; }

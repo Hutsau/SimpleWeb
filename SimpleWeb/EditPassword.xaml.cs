@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SimpleWeb.Models;
 
 namespace SimpleWeb
 {
@@ -21,11 +22,14 @@ namespace SimpleWeb
     /// </summary>
     public partial class EditPassword
     {
-        string password = EncDecHelper.DecryptString(Settings.Default.Password).ToInsecureString();
-
+        //string password = EncDecHelper.DecryptString(Settings.Default.Password).ToInsecureString();
+        Repository rep = new Repository();
+        string password;
         public EditPassword()
         {
             InitializeComponent();
+
+            password = rep.GetPass;
 
             SaveBt.MouseDown += GlobalVars.mMouseDown;
             CancelBt.MouseDown += GlobalVars.mMouseDown;
@@ -74,7 +78,7 @@ namespace SimpleWeb
             ConfirmPassword.IsEnabled = false;
 
             Password.PasswordChanged += (sender, e) => {
-                if (Password.Password == password) {
+                if (GlobalVars.GetHashCode(Password.Password) == password) {
                     Password.IsEnabled = false;
                     NewPassword.IsEnabled = true;
                     ConfirmPassword.IsEnabled = true;
@@ -145,7 +149,10 @@ namespace SimpleWeb
                 return;
             }
 
-            EncDecHelper.SetPassword(NewPassword.Password);
+            //rep.EditPass(NewPassword.Password);
+            rep.GetPass = GlobalVars.GetHashCode(NewPassword.Password);
+           // EncDecHelper.SetPassword(NewPassword.Password);
+            
 
             await this.ShowMessageAsync(string.Empty, "Password has changed.");
             this.Close();

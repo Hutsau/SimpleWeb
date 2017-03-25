@@ -23,8 +23,8 @@ namespace SimpleWeb
     public partial class EditStudent
     {
         Repository repository = new Repository();
-        int _group = GlobalVars.groupID;
-        int _student = GlobalVars.studentID;
+        int _group = GlobalVars.GroupID;
+        int _student = GlobalVars.StudentID;
         Student student;
 
         public EditStudent()
@@ -63,7 +63,7 @@ namespace SimpleWeb
                 SecondName.Text = student.SecondName;
             }
 
-            GlobalVars.saveFlag = false;
+            GlobalVars.SaveFlag = false;
             Surname.Focus();
         }
 
@@ -126,7 +126,7 @@ namespace SimpleWeb
             });
 
             await this.ShowMessageAsync(string.Empty, "Student saved.");
-            GlobalVars.saveFlag = true;
+            GlobalVars.SaveFlag = true;
             this.Close();
         }
 

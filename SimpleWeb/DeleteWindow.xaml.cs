@@ -27,11 +27,11 @@ namespace SimpleWeb
     {
         Repository repository = new Repository();
 
-        int _group = GlobalVars.groupID;
-        int _student = GlobalVars.studentID;
-        int _test = GlobalVars.testID;
+        int _group = GlobalVars.GroupID;
+        int _student = GlobalVars.StudentID;
+        int _test = GlobalVars.TestID;
 
-        string key = GlobalVars.groupID != 0 ? "group" : GlobalVars.studentID != 0 ? "student" : "test";
+        string key = GlobalVars.GroupID != 0 ? "group" : GlobalVars.StudentID != 0 ? "student" : "test";
 
         bool canUserCloseForm = true;
 
@@ -60,7 +60,7 @@ namespace SimpleWeb
 
             InfoLabel.Content = $"This {key} will be deleted.";
 
-            GlobalVars.deleteFlag = false;
+            GlobalVars.DeleteFlag = false;
         }
 
         private void Cancel()
@@ -94,7 +94,7 @@ namespace SimpleWeb
             PreCloseLabel.Visibility = Visibility.Visible;
 
             canUserCloseForm = true;
-            GlobalVars.deleteFlag = true;
+            GlobalVars.DeleteFlag = true;
 
             await Task.Run(() => Thread.Sleep(2000));
 

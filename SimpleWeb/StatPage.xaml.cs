@@ -32,7 +32,6 @@ namespace SimpleWeb
 
         Student currStudent;
         Group currGroup;
-        //IEnumerable<Test> tests;
 
         List<StatView> preDG_Html;
         List<StatView> preDG_Css;
@@ -43,44 +42,46 @@ namespace SimpleWeb
         {
             InitializeComponent();
 
-            // DEBUG
-            //
-            if (GlobalVars.flag)
-            {
-                repository.SaveGroup(new Group { GroupID = 0, GroupNumber = "32411" });
-                repository.SaveGroup(new Group { GroupID = 0, GroupNumber = "22411" });
-                repository.SaveStudent(new Student
-                {
-                    StudentID = 0,
-                    GroupID = 1,
-                    Name = "Alex",
-                    Surname = "1Hutsau",
-                });
-                repository.SaveStudent(new Student
-                {
-                    StudentID = 0,
-                    GroupID = 1,
-                    Name = "Alex",
-                    Surname = "Hadkevich",
-                });
-                repository.SaveStudent(new Student
-                {
-                    StudentID = 0,
-                    GroupID = 2,
-                    Name = "Alex",
-                    Surname = "Hutsau",
-                });
-                repository.SaveStudent(new Student
-                {
-                    StudentID = 0,
-                    GroupID = 1,
-                    Name = "Alexey",
-                    Surname = "Hutsau",
-                });
+            //#region DEBUG
 
-                setData();
-            }
-            GlobalVars.flag = false;
+            //if (GlobalVars.DebugFlag)
+            //{
+            //    repository.SaveGroup(new Group { GroupID = 0, GroupNumber = "Group1" });
+            //    repository.SaveGroup(new Group { GroupID = 0, GroupNumber = "Group2" });
+            //    repository.SaveStudent(new Student
+            //    {
+            //        StudentID = 0,
+            //        GroupID = 1,
+            //        Name = "Name1",
+            //        Surname = "Surname1",
+            //    });
+            //    repository.SaveStudent(new Student
+            //    {
+            //        StudentID = 0,
+            //        GroupID = 1,
+            //        Name = "Name2",
+            //        Surname = "Surname2",
+            //    });
+            //    repository.SaveStudent(new Student
+            //    {
+            //        StudentID = 0,
+            //        GroupID = 2,
+            //        Name = "Name3",
+            //        Surname = "Surname3",
+            //    });
+            //    repository.SaveStudent(new Student
+            //    {
+            //        StudentID = 0,
+            //        GroupID = 1,
+            //        Name = "Name4",
+            //        Surname = "Surname4",
+            //    });
+
+            //    setData();
+            //}
+            //GlobalVars.DebugFlag = false;
+
+            //#endregion
 
             SearchGroup.GotFocus += mFocus;
             SearchStudent.GotFocus += mFocus;
@@ -150,8 +151,9 @@ namespace SimpleWeb
             BadStat.Visibility = Visibility.Visible;
         }
 
-        // DEBUG
-        private void setData()
+        #region DEBUG
+
+        private void SetData()
         {
             repository.SaveTest(new Test
             {
@@ -226,6 +228,8 @@ namespace SimpleWeb
                 Date = DateTime.Now
             });
         }
+
+        #endregion
 
         private void SortHandler(object sender, DataGridSortingEventArgs e) {
             if (!preDG_Html.Any() && !preDG_Css.Any() && !preDG_Js.Any() && !preDG_Xml.Any()) return;
@@ -569,11 +573,11 @@ namespace SimpleWeb
 
             switch (((Grid)sender).Name) {
                 case "AddGroupBt":
-                    GlobalVars.groupID = 0;
+                    GlobalVars.GroupID = 0;
 
-                    new EditGroup { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+                    new EditGroup { Owner = GlobalVars.MWindow }.ShowDialog();
                     
-                    if (GlobalVars.saveFlag) {
+                    if (GlobalVars.SaveFlag) {
                         repository = new Repository();
 
                         SearchGroup.Text = MY_TAG;
@@ -582,11 +586,11 @@ namespace SimpleWeb
 
                     break;
                 case "EditGroupBt":
-                    GlobalVars.groupID = currGroup.GroupID;
+                    GlobalVars.GroupID = currGroup.GroupID;
 
-                    new EditGroup { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+                    new EditGroup { Owner = GlobalVars.MWindow }.ShowDialog();
 
-                    if (GlobalVars.saveFlag) {
+                    if (GlobalVars.SaveFlag) {
                         repository = new Repository();
 
                         SearchGroup.Text = MY_TAG;
@@ -595,13 +599,13 @@ namespace SimpleWeb
 
                     break;
                 case "DeleteGroupBt":
-                    GlobalVars.groupID = currGroup.GroupID;
-                    GlobalVars.studentID = 0;
-                    GlobalVars.testID = 0;
+                    GlobalVars.GroupID = currGroup.GroupID;
+                    GlobalVars.StudentID = 0;
+                    GlobalVars.TestID = 0;
 
-                    new DeleteWindow { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+                    new DeleteWindow { Owner = GlobalVars.MWindow }.ShowDialog();
 
-                    if (GlobalVars.deleteFlag) {
+                    if (GlobalVars.DeleteFlag) {
                         repository = new Repository();
 
                         SearchGroup.Text = MY_TAG;
@@ -610,12 +614,12 @@ namespace SimpleWeb
 
                     break;
                 case "AddStudentBt":
-                    GlobalVars.studentID = 0;
-                    GlobalVars.groupID = currGroup.GroupID;
+                    GlobalVars.StudentID = 0;
+                    GlobalVars.GroupID = currGroup.GroupID;
 
-                    new EditStudent { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+                    new EditStudent { Owner = GlobalVars.MWindow }.ShowDialog();
 
-                    if (GlobalVars.saveFlag) {
+                    if (GlobalVars.SaveFlag) {
                         repository = new Repository();
 
                         SearchStudent.Text = MY_TAG;
@@ -624,12 +628,12 @@ namespace SimpleWeb
 
                     break;
                 case "EditStudentBt":
-                    GlobalVars.studentID = currStudent.StudentID;
-                    GlobalVars.groupID = currGroup.GroupID;
+                    GlobalVars.StudentID = currStudent.StudentID;
+                    GlobalVars.GroupID = currGroup.GroupID;
 
-                    new EditStudent { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+                    new EditStudent { Owner = GlobalVars.MWindow }.ShowDialog();
 
-                    if (GlobalVars.saveFlag) {
+                    if (GlobalVars.SaveFlag) {
                         repository = new Repository();
 
                         SearchStudent.Text = MY_TAG;
@@ -638,13 +642,13 @@ namespace SimpleWeb
 
                     break;
                 case "DeleteStudentBt":
-                    GlobalVars.groupID = 0;
-                    GlobalVars.studentID = currStudent.StudentID;
-                    GlobalVars.testID = 0;
+                    GlobalVars.GroupID = 0;
+                    GlobalVars.StudentID = currStudent.StudentID;
+                    GlobalVars.TestID = 0;
 
-                    new DeleteWindow { Owner = ((MainWindow)Application.Current.MainWindow) }.ShowDialog();
+                    new DeleteWindow { Owner = GlobalVars.MWindow }.ShowDialog();
 
-                    if (GlobalVars.deleteFlag) {
+                    if (GlobalVars.DeleteFlag) {
                         repository = new Repository();
 
                         SearchStudent.Text = MY_TAG;
